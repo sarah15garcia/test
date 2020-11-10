@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Sara Test</title>
+
+    <style>
+        
+        body{
+            padding: 0 2%;
+            color: #2e3e50;
+            background: #d8dddd;
+            }
+            .PRINCIPAL{
+            margin: auto;
+            padding: 1% 2%;
+            max-width: 1440px;
+            border-radius: 5px;
+            background: #ecf0f1;
+            box-shadow: 0 2px 6px 0 rgba(0,0,0, .3);
+            }
+            h1,h2,h3{
+            text-align: center;
+
+            }
+            li{
+            color: #2c3e50;
+            font-size: 18px;
+            line-height: 30px;
+            text-align: justify;
+            letter-spacing: 1px;
+            }
+
+            .LISTA{
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            }
+            .LISTA .ITEM{
+            min-width: 24%;
+            margin: 2% .35%;
+            display: inline-flex;
+            box-shadow: 0 2px 4px rgba(0,0,0, .2);
+            }
+            .LISTA .ITEM:hover{
+            box-shadow:0 5px 10px rgba(0,0,0,.15);}
+            .LISTA .box{
+            width: 100%;
+            height: 100vh;
+            padding: 1% 2%;
+            background: #fff;
+            min-height: 200px;
+            max-height: 220px;
+            box-sizing: border-box;
+            }
+
+
+
+            @media (max-width: 970px){
+            .LISTA .ITEM{width: 180px;}}
+            @media (max-width: 425px){
+            .LISTA .ITEM{width: 100%;}
+            }
+
+    </style>
+
+    <script>
+        async function fetchAndLoad() {
+const response = await fetch(
+"http://portal.humancapital.com.co:8090/utilClass/listNivelArl"
+);
+const myJson = await response.json();
+if (myJson.status == 200 && myJson.message == "OK") {
+myJson.payLoad.forEach(obj => {
+var li = document.createElement('li')
+var div = document.createElement("div");
+var ul = document.createElement("ul");
+
+var li_item1 = document.createElement("li");
+var li_item2 = document.createElement("li");
+var li_item3 = document.createElement("li");
+var li_item4 = document.createElement("li");
+
+var codigo = document.createTextNode("Codigo: "+obj.codigo);
+li_item1.append(codigo)
+var nivelRiesgo = document.createTextNode("Nivel de riesgo: "+obj.nivelRiesgo);
+li_item2.append(nivelRiesgo)
+var aporteP = document.createTextNode("Aporte: "+obj.porcentajeAporte+"%");
+li_item3.append(aporteP)
+var aporteV = document.createTextNode("Valor aporte: $"+obj.valorAporte);
+li_item4.append(aporteV)
+
+li.setAttribute("class","ITEM")
+div.setAttribute("class","box")
+ul.setAttribute("class","s2")
+
+ul.append(li_item1)
+ul.append(li_item2)
+ul.append(li_item3)
+ul.append(li_item4)
+
+div.append(ul)
+li.append(div)
+document.querySelector("ul.LISTA").append(li)
+});
+}
+}
+fetchAndLoad();
+    </script>
+
+</head>
+<body>
+    
+    <div class="PRINCIPAL">
+
+        <h1>DATOS</h1>
+
+        <ul class="LISTA"></ul>
+
+    </div>
+
+</body>
+</html>
